@@ -53,7 +53,7 @@ const getDefaultDrawerWidth = ({
 export function Drawer({
   // Reanimated 2 is not configured
   // @ts-expect-error: the type definitions are incomplete
-  useLegacyImplementation = !Reanimated.isConfigured?.(),
+  // useLegacyImplementation = !Reanimated.isConfigured?.(),
   layout: customLayout,
   drawerType = Platform.select({ ios: 'slide', default: 'front' }),
   drawerPosition = I18nManager.getConstants().isRTL ? 'right' : 'left',
@@ -71,19 +71,16 @@ export function Drawer({
   ...rest
 }: Props) {
   // Reanimated v3 dropped legacy v1 API
-  const legacyImplemenationNotAvailable =
-    require('react-native-reanimated').abs === undefined;
+  // const legacyImplemenationNotAvailable =
+  //   require('react-native-reanimated').abs === undefined;
 
-  if (useLegacyImplementation && legacyImplemenationNotAvailable) {
-    throw new Error(
-      'The `useLegacyImplementation` prop is not available with Reanimated 3 as it no longer includes support for Reanimated 1 legacy API. Remove the `useLegacyImplementation` prop from `Drawer.Navigator` to be able to use it.'
-    );
-  }
+  // if (useLegacyImplementation && legacyImplemenationNotAvailable) {
+  //   throw new Error(
+  //     'The `useLegacyImplementation` prop is not available with Reanimated 3 as it no longer includes support for Reanimated 1 legacy API. Remove the `useLegacyImplementation` prop from `Drawer.Navigator` to be able to use it.'
+  //   );
+  // }
 
-  const Drawer: typeof import('./modern/Drawer').Drawer =
-    useLegacyImplementation
-      ? require('./legacy/Drawer').Drawer
-      : require('./modern/Drawer').Drawer;
+  const Drawer: typeof import('./modern/Drawer').Drawer = require('./modern/Drawer').Drawer;
 
   const windowDimensions = useWindowDimensions();
   const layout = customLayout ?? windowDimensions;
